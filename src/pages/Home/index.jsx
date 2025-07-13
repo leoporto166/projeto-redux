@@ -2,13 +2,19 @@ import styles from './home.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
+import { useSelector } from 'react-redux'
+
 
 export function Home() {
+
+  const { user } = useSelector((rootReducer ) => rootReducer.user)
 
 
   function handleDeleteAddress(){
     alert("Endereço deletado com sucesso!")
   }
+
+  console.log(user)
 
   return (
     <>
@@ -29,15 +35,16 @@ export function Home() {
         <main className={styles.content}>
           <div className={styles.message}>
             <h1 className={styles.title}>
-              Olá Visitante, bem vindo!
+              Olá {user ? user.name : "Visitante"}, bem vindo!
             </h1>
 
-            <span>Email: ....</span>
+            <span>Email: {user ? user.email : "..."}</span>
 
 
             <strong className={styles.addressLabel}>Endereço atual:</strong>
             <div className={styles.address}>
-              <p>Rua centro, n 123</p>
+              <p>{user ? `${user.adress}, n ${user.numero}` : "Sem enderço"}
+              </p>
               
               <button onClick={handleDeleteAddress}>Deletar endereço</button>
             </div>

@@ -2,22 +2,37 @@ import { useState } from 'react';
 import styles from './login.module.css'
 
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { createUser } from '../../redux/User/slice';
 
 export function Login() {
 
     const { user } = useSelector((rootReducer) => rootReducer.user)
 
     console.log(user)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
   function handleLogin(e){
     e.preventDefault()
-    
-    console.log(name, email)
+
+    if(name === "" || email === ""){
+      alert("Preencha os campos")
+      return
+    }
+
+    dispatch(createUser({
+      name: name,
+      email: email,
+    }))
+    navigate("/painel")
+
   }
 
   return (

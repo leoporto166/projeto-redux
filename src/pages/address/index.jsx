@@ -3,13 +3,29 @@ import styles from './address.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { createUser } from '../../redux/User/slice'
+
+
 export function Address() {
   const [addressName, setAddressName] = useState("")
   const [addressNumber, setAddressNumber] = useState("")
 
+  const { user } = useSelector((rootReduce) => rootReduce.user)
+
+  const dispatch = useDispatch()
+
 
   function handleRegisterAddress(){
     console.log(addressName, addressNumber)
+
+    dispatch(createUser({
+        adress: addressName,
+        numero: addressNumber,
+    }))
+
+
   }
 
   return (
