@@ -3,7 +3,14 @@ import styles from './login.module.css'
 
 import { Link } from 'react-router-dom'
 
+import { useSelector } from 'react-redux'
+
 export function Login() {
+
+    const { user } = useSelector((rootReducer) => rootReducer.user)
+
+    console.log(user)
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 

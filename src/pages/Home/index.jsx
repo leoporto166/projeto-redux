@@ -2,7 +2,9 @@ import styles from './home.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
+
 export function Home() {
+
 
   function handleDeleteAddress(){
     alert("Endereço deletado com sucesso!")
