@@ -3,15 +3,19 @@ import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { delAddress } from '../../redux/User/slice'
 
 
 export function Home() {
 
   const { user } = useSelector((rootReducer ) => rootReducer.user)
+  const dispatch = useDispatch()
 
 
   function handleDeleteAddress(){
     alert("Endereço deletado com sucesso!")
+    dispatch(delAddress())
   }
 
   console.log(user)
@@ -38,16 +42,24 @@ export function Home() {
               Olá {user ? user.name : "Visitante"}, bem vindo!
             </h1>
 
-            <span>Email: {user ? user.email : "..."}</span>
+            {user && (
+              <>
+              <span>Email: {user.email}</span>
 
 
-            <strong className={styles.addressLabel}>Endereço atual:</strong>
-            <div className={styles.address}>
-              <p>{user ? `${user.adress}, n ${user.numero}` : "Sem enderço"}
-              </p>
-              
-              <button onClick={handleDeleteAddress}>Deletar endereço</button>
-            </div>
+              <strong className={styles.addressLabel}>Endereço atual:</strong>
+              <div className={styles.address}>
+                {user.address && (
+                  <>
+                    <p>{user.address.location}, N {user.address.number}</p>
+                  
+                    <button onClick={handleDeleteAddress}>Deletar endereço</button>
+                  </>
+                )}
+              </div>
+            </>
+          
+          )} 
 
           </div>
 

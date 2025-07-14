@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './address.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { createUser } from '../../redux/User/slice'
+import { userAdress } from '../../redux/User/slice'
 
 
 export function Address() {
@@ -20,13 +20,22 @@ export function Address() {
   function handleRegisterAddress(){
     console.log(addressName, addressNumber)
 
-    dispatch(createUser({
-        adress: addressName,
-        numero: addressNumber,
+    dispatch(userAdress({
+        location: addressName,
+        number: addressNumber,
     }))
 
 
   }
+
+  useEffect(() => {
+
+    if(user?.address?.location && user?.address?.number){
+      setAddressName(user.address.location)
+      setAddressNumber(user.address.number)
+    }
+
+  }, [user])
 
   return (
     <>
