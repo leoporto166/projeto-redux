@@ -4,6 +4,7 @@ const InitialState = {
     user: null,
     users: [],
     loading: false,
+    userId: null
 }
 
 export const userSlice = createSlice({
@@ -93,7 +94,23 @@ export const userSlice = createSlice({
             console.log("Caiu na Failure")
             console.log(action.payload)
             state.loading = false
-        }
+        },
+
+        fetchUserById:(state) => {
+            console.log("Chamou")
+        },
+
+        fetchUserByIdSucess: (state, action) => {
+            console.log("Sucess")
+            console.log(action.payload)
+            state.userId = action.payload
+        },
+
+        fetchUserByIdFailure: (state, action) => {
+            console.log("Failure")
+            console.log(action.payload)
+        },
+
         }
 
        
@@ -103,5 +120,5 @@ export const userSlice = createSlice({
 })
 
 
-export const {createUser, logoutUser, userAdress, delAddress, fetchUsers, fetchUsersSucess, fetchUsersFailure} = userSlice.actions
+export const {createUser, logoutUser, userAdress, delAddress, fetchUsers, fetchUsersSucess, fetchUsersFailure, fetchUserById, fetchUserByIdSucess, fetchUserByIdFailure} = userSlice.actions
 export default userSlice.reducer

@@ -1,15 +1,17 @@
 import styles from './home.module.css'
 import { Header } from '../../components/header'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { delAddress, fetchUsers } from '../../redux/User/slice'
+import { delAddress, fetchUsers, fetchUserById } from '../../redux/User/slice'
 
 
 export function Home() {
+  const [id, setId] = useState("")
 
-  const { user, users, loading } = useSelector((rootReducer ) => rootReducer.user)
+  const { user, users, loading, userId } = useSelector((rootReducer ) => rootReducer.user)
   const dispatch = useDispatch()
 
 
@@ -20,6 +22,15 @@ export function Home() {
 
   function handleFetchUser(){
     dispatch(fetchUsers())
+  }
+
+  function handleFecthUserId(){
+
+    if(id < 1 || id > 10){
+      alert("ID não encontrado")
+      return
+    }
+    dispatch(fetchUserById(id))
   }
 
   console.log(user)
@@ -92,6 +103,40 @@ export function Home() {
               
               ))}
 
+          </div>
+
+          <br />
+
+          <div>
+            <label>ID do usuario</label>
+            <br />
+            <input type="text" 
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            />
+            <br />
+            <button onClick={handleFecthUserId}>Buscar</button>
+
+            { userId && (
+              <>
+                <br />
+                <br />
+                <span>ID: {userId.id}</span>
+                <br />
+                <span>Nome: {userId.name}</span>
+                <br />
+                <span>Email: {userId.email}</span>
+                <br />
+                <span>Endereço: <br />
+
+                Rua: {userId.address?.street}   
+                <br />
+                Cidade: {userId.address?.city}
+                </span>
+              </>
+
+          )
+            }
           </div>
 
           </div>
