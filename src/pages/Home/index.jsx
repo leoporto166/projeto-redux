@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { delAddress } from '../../redux/User/slice'
+import { delAddress, fetchUsers } from '../../redux/User/slice'
 
 
 export function Home() {
@@ -16,6 +16,10 @@ export function Home() {
   function handleDeleteAddress(){
     alert("Endereço deletado com sucesso!")
     dispatch(delAddress())
+  }
+
+  function handleFetchUser(){
+    dispatch(fetchUsers())
   }
 
   console.log(user)
@@ -47,19 +51,31 @@ export function Home() {
               <span>Email: {user.email}</span>
 
 
-              <strong className={styles.addressLabel}>Endereço atual:</strong>
-              <div className={styles.address}>
-                {user.address && (
-                  <>
+              {user.address && (
+                <>
+                  <strong className={styles.addressLabel}>Endereço atual:</strong>
+                  <div className={styles.address}>
+                
+                  
                     <p>{user.address.location}, N {user.address.number}</p>
                   
                     <button onClick={handleDeleteAddress}>Deletar endereço</button>
+                  </div>
                   </>
                 )}
-              </div>
+              
             </>
           
           )} 
+
+          <br />
+          <hr />
+          <br />
+
+          <div>
+            <h2>Lista de usuarios</h2>
+            <button onClick={handleFetchUser}>Buscar</button>
+          </div>
 
           </div>
 
