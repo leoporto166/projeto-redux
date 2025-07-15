@@ -9,7 +9,7 @@ import { delAddress, fetchUsers } from '../../redux/User/slice'
 
 export function Home() {
 
-  const { user } = useSelector((rootReducer ) => rootReducer.user)
+  const { user, users, loading } = useSelector((rootReducer ) => rootReducer.user)
   const dispatch = useDispatch()
 
 
@@ -75,6 +75,23 @@ export function Home() {
           <div>
             <h2>Lista de usuarios</h2>
             <button onClick={handleFetchUser}>Buscar</button>
+
+            {loading && (
+              <strong>Carregando usuarios...</strong>
+            )}
+              {!loading && users.map((user) => (
+                <div key={user.id}>
+                  <br />
+                  <span>ID: {user.id}</span>
+                  <br />
+                  <span>Nome: {user.name}</span>
+                  <br />
+                  <span>Email: {user.email}</span>
+                  <br />
+                </div>
+              
+              ))}
+
           </div>
 
           </div>
